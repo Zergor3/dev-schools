@@ -16,7 +16,7 @@ const MENUITEMS = [
 
 <header>
     <div class="max-w-[1440px] mx-auto flex items-center justify-between py-4 px-6">
-        <img src="/logo.png" alt="Logo Dev Schools" class="w-auto h-[30px]" />
+        <img src={`${import.meta.env.BASE_URL}/logo.png`} alt="Logo Dev Schools" class="w-auto h-[30px]" />
         <nav class="hidden md:flex space-x-6">
             {
                 MENUITEMS.map((item) => (
