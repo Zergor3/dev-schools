@@ -1,0 +1,112 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+    const schools = await getCollection("schools");
+    return schools.map((school) => ({
+        params: {
+            id: school.slug,
+        },
+        props: { school },
+    }));
+}
+
+const { school } = Astro.props;
+const { data, slug } = school;
+const {
+    img,
+    nombre,
+    direccion,
+    niveles,
+    infraestructura,
+    lugar,
+    descripcion,
+    programas_destacados,
+    contacto,
+} = data;
+const { Content } = await render(school);
+---
+
+<Layout title={`${nombre} - Dev Schools`}>
+    <div class="flex flex-col md:flex-row gap-12">
+        <aside class="flex flex-col items-center gap-4">
+            <a href="/" class="hover:underline opacity-70 self-start">← Volver atrás</a>
+            <img
+                transition:name={`img-${slug}`}
+                src={`/${img}`}
+                alt={nombre}
+                class="rounded w-full"
+            />
+        </aside>
+        <main class="max-w-3xl mx-auto p-6 bg-neutral-900 text-neutral-200 rounded-lg shadow-lg">
+            <h1 
+                transition:name={`title-${slug}`} 
+                class="text-5xl font-bold text-center text-white mb-6"
+            >
+                {nombre}
+            </h1>
+        
+            <div class="prose prose-invert max-w-none leading-relaxed">
+                <Content />
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <p class="text-lg"><strong class="text-neutral-300">📍 Ubicación:</strong> {lugar}</p>
+                <p class="text-neutral-400">{descripcion}</p>
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <h3 class="text-xl font-semibold text-white">📌 Dirección:</h3>
+                <p class="text-neutral-400">{direccion}</p>
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <h3 class="text-xl font-semibold text-white">🎓 Niveles Educativos:</h3>
+                <ul class="list-disc pl-5 text-neutral-400">
+                    {niveles.map((nivel) => <li>{nivel}</li>)}
+                </ul>
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <h3 class="text-xl font-semibold text-white">🔥 Programas Destacados:</h3>
+                <ul class="list-disc pl-5 text-neutral-400">
+                    {programas_destacados.map((programa) => <li>{programa}</li>)}
+                </ul>
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <h3 class="text-xl font-semibold text-white">🏛️ Infraestructura:</h3>
+                <ul class="list-disc pl-5 text-neutral-400">
+                    {infraestructura.map((infra) => <li>{infra}</li>)}
+                </ul>
+            </div>
+        
+            <div class="mt-6 border-t border-neutral-700 pt-4">
+                <h3 class="text-xl font-semibold text-white">📞 Contacto:</h3>
+                <p><strong class="text-neutral-300">Teléfono:</strong> {contacto.telefono}</p>
+                <p>
+                    <strong class="text-neutral-300">Email:</strong>
+                    <a 
+                        href={`mailto:${contacto.email}`} 
+                        class="text-blue-400 hover:text-blue-300 underline"
+                    >
+                        {contacto.email}
+                    </a>
+                </p>
+                {contacto.web && (
+                    <p>
+                        <strong class="text-neutral-300">Web:</strong>
+                        <a 
+                            href={contacto.web} 
+                            class="text-blue-400 hover:text-blue-300 underline"
+                        >
+                            {contacto.web}
+                        </a>
+                    </p>
+                )}
+            </div>
+        </main>
+    </div>
+</Layout>

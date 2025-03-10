@@ -1,0 +1,74 @@
+---
+const MENUITEMS = [
+    { name: "Sedes", href: "/" },
+    {
+        name: "Información",
+        href: "mailto:info@colegio.com?subject=Solicitud%20de%20Información&body=Hola,%20quiero%20saber%20más%20sobre%20el%20colegio.",
+    },
+    {
+        name: "Trabaja con nosotros",
+        href: "mailto:info@colegio.com?subject=Solicitud%20de%Trabajo&body=Hola,%20quisiera%20presentarme%20como%20postulante.",
+    },
+] as const;
+---
+
+<header>
+    <div class="max-w-[1440px] mx-auto flex items-center justify-between py-4 px-6">
+        <img src="/logo.png" alt="Logo Dev Schools" class="w-auto h-[30px]" />
+        <nav class="hidden md:flex space-x-6">
+            {
+                MENUITEMS.map((item) => (
+                    <a
+                        href={item.href}
+                        class="hover:text-blue-400 transition duration-300"
+                    >
+                        {item.name}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <button
+            id="menu-toggle"
+            class="md:hidden text-white focus:outline-none"
+        >
+            <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <nav id="mobile-menu" class="hidden md:hidden bg-gray-800">
+        {
+            MENUITEMS.map((item) => (
+                <a
+                    href={item.href}
+                    class="block px-6 py-3 border-b border-gray-700 hover:bg-gray-700"
+                >
+                    {item.name}
+                </a>
+            ))
+        }
+    </nav>
+
+    <script is:inline>
+        document.addEventListener("DOMContentLoaded", () => {
+            document
+                .getElementById("menu-toggle")
+                .addEventListener("click", () => {
+                    document
+                        .getElementById("mobile-menu")
+                        .classList.toggle("hidden");
+                });
+        });
+    </script>
+</header>
