@@ -21,7 +21,7 @@ const schools = await getCollection("schools");
 							const { nombre, img, descripcion, fundacion } =
 								data;
 							return (
-								<article class="flex gap-6 mb-12">
+								<article class="flex flex-col md:flex-row gap-6 mb-12">
 									<a
 										href={`${import.meta.env.BASE_URL}/escuela/${slug}`}
 										class="mb-2 xl:mb-0 transition hover:scale-110"
