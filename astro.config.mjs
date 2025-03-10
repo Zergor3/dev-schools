@@ -5,7 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  base: "/dev-schools/",
+  site: 'https://Zergor3.github.io',
+  base: "dev-schools",
   vite: {
     plugins: [tailwindcss()]
   }
