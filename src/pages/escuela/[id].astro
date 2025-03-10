@@ -33,7 +33,7 @@ const { Content } = await render(school);
 <Layout title={`${nombre} - Dev Schools`}>
     <div class="flex flex-col md:flex-row gap-12">
         <aside class="flex flex-col items-center gap-4">
-            <a href="/" class="hover:underline opacity-70 self-start">← Volver atrás</a>
+            <a href={`${import.meta.env.BASE_URL}/`} class="hover:underline opacity-70 self-start">← Volver atrás</a>
             <img
                 transition:name={`img-${slug}`}
                 src={`${import.meta.env.BASE_URL}/${img}`}
