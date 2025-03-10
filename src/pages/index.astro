@@ -23,7 +23,7 @@ const schools = await getCollection("schools");
 							return (
 								<article class="flex gap-6 mb-12">
 									<a
-										href={`/escuela/${slug}`}
+										href={`${import.meta.env.BASE_URL}/escuela/${slug}`}
 										class="mb-2 xl:mb-0 transition hover:scale-110"
 									>
 										<img
